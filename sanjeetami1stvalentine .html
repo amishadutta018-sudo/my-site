@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- GENERAL STYLES --- */
+        body {
+            margin: 0;
+            padding: 0;
+            /* Vibrant Valentine Gradient */
+            background: linear-gradient(135deg, #ff9a9e 0%, #ffc3a0 50%, #ffafbd 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* --- FLOATING BACKGROUND EMOJIS --- */
+        .floating-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .float-item {
+            position: absolute;
+            bottom: -10vh;
+            font-size: 2rem;
+            animation: floatUp 15s linear infinite;
+            opacity: 0.8;
+        }
+
+        /* Creating many different floating items with random speeds/positions */
+        .i1 { left: 5%; animation-duration: 12s; font-size: 3rem; }
+        .i2 { left: 15%; animation-duration: 15s; font-size: 2rem; animation-delay: 1s; }
+        .i3 { left: 25%; animation-duration: 10s; font-size: 2.5rem; animation-delay: 3s; }
+        .i4 { left: 35%; animation-duration: 18s; font-size: 2rem; }
+        .i5 { left: 45%; animation-duration: 14s; font-size: 3.5rem; animation-delay: 2s; }
+        .i6 { left: 55%; animation-duration: 11s; font-size: 2rem; animation-delay: 5s; }
+        .i7 { left: 65%; animation-duration: 16s; font-size: 2.5rem; }
+        .i8 { left: 75%; animation-duration: 13s; font-size: 2rem; animation-delay: 4s; }
+        .i9 { left: 85%; animation-duration: 19s; font-size: 3rem; animation-delay: 1s; }
+        .i10 { left: 95%; animation-duration: 15s; font-size: 2.5rem; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- CONTENT BOX (Updated to allow scrolling) --- */
+.container {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 550px;
+    color: #d6336c;
+    border: 2px solid white;
+    
+    /* NEW LINES TO FIX YOUR ISSUE: */
+    max-height: 85vh; /* Limit height to 85% of the screen */
+    overflow-y: auto; /* Add a scrollbar if text is too long */
+}
+
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            color: #ff4757;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* --- BUTTON STYLES --- */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .landing-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 18px;
+            font-family: 'Dancing Script', cursive;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.2);
+        }
+
+        .yes-btn {
+            background: linear-gradient(to right, #ff4757, #ff6b81);
+            color: white;
+            font-size: 22px;
+        }
+
+        .no-btn {
+            background: white;
+            color: #ff4757;
+            border: 2px solid #ff4757;
+        }
+        
+        /* Customizable Back Button Style */
+        .back-btn {
+            background: transparent;
+            color: #888;
+            border: 1px dashed #ccc; /* Dashed line looks like a coupon/note */
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            padding: 10px 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .back-btn:hover {
+            background: #fff0f3;
+            color: #ff4757;
+            border-color: #ff4757;
+            transform: scale(1.02);
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* --- NO BUTTON MESSAGE --- */
+        .response-message {
+            min-height: 30px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #d63031;
+            font-size: 1.2em;
+        }
+
+        .shake { animation: shake 0.4s; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* --- SLIDESHOW --- */
+        #slideshow-container { display: none; }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .slide.active { display: block; }
+
+        .photo-frame {
+            width: 100%;
+            height: 320px;
+            background-color: #ffe6e9;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 8px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Add a cute "tape" look to the photo top */
+        .photo-frame::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            width: 100px;
+            height: 30px;
+            background: rgba(255,255,255,0.5);
+            transform: rotate(-5deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-container">
+        <div class="float-item i1">❤️</div>
+        <div class="float-item i2">🧸</div>
+        <div class="float-item i3">✨</div>
+        <div class="float-item i4">💌</div>
+        <div class="float-item i5">🌹</div>
+        <div class="float-item i6">💖</div>
+        <div class="float-item i7">🍫</div>
+        <div class="float-item i8">💋</div>
+        <div class="float-item i9">😻</div>
+        <div class="float-item i10">✨</div>
+    </div>
+
+    <div id="landing-page" class="container">
+        <h1>I want to be your Valentine — not just today, not just this year, but forever and always.</h1>
+
+        <p style="margin-top: 30px;">Do you want to see why I believe we are a perfect couple💌✨</p>
+        
+        <div class="landing-buttons">
+            <button class="yes-btn" onclick="startSlideshow()">YES 😍</button>
+            <button class="no-btn" onclick="handleNoClick()">NO 🙄</button>
+        </div>
+        
+        <p id="response-text" class="response-message"></p>
+    </div>
+
+    <div id="slideshow-container" class="container">
+        
+        <div class="slide active">
+            <div class="photo-frame">
+                <img src="1.jpeg.jpeg" alt="Photo 1">
+            </div>
+            <h2>Reason #1</h2>
+            <p>I can never forget our first date. 
+                I was honestly expecting chocolates, obviously 😄, 
+                but you surprised me with roses too, and they were so beautiful. 
+                Hearing your voice, talking to face to face… thank God I didn’t faint, hehe. 
+                I was so happy at that moment. It was so much fun, more than I ever imagined. 
+                If I start writing everything about that day, it won’t even fit in one slide.
+                There are so many reasons why we are a perfect couple, but I tried to cover some of them.💖✨</p>
+            
+            <div class="buttons">
+                <button class="yes-btn" onclick="nextSlide(1)">Let’s go to the next photo➡️</button>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="photo-frame">
+                <img src="2.jpeg.jpeg" alt="Photo 2">
+            </div>
+            <h2>Reason #2</h2>
+            <p>I have so many kisses to give you and I know you love kissing me too, even if you deny it 😘🙈 So we will never ever run out of kisses. 
+                I will always keep you as my baby babu, because you are my cutu baby✨.
+                Every kiss of mine is full of love just for you 💋 and no matter how many times we kiss, it will still feel special every single time 🥰❤️</p>
+            
+            <div class="buttons">
+                <button class="yes-btn" onclick="nextSlide(2)">Keep going… there’s more 💕➡️</button>
+                
+                <button class="back-btn" onclick="prevSlide(0)">Want to go back and see our first date photo once again, you can 🤭🤗</button>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="photo-frame">
+                <img src="3.jpeg.jpeg" alt="Photo 3">
+            </div>
+            <h2>Reason #3</h2>
+            <p>We just fit together perfectly. Think about it — we both are non-vegetarian, our favourite dessert is cheesecake and we both like mousse cake. 
+                I loved Mani’s biryani too, our tastes are mostly the same and we are both open to trying new things. We are both foodies, and the list just goes on🥰. 
+                I will even give my first and last bite to you — that’s how special you have become for me. 
+                And since you have me, you can have your dessert anytime you want, if you know what I mean🤭🙈</p>
+            
+            <div class="buttons">
+                <button class="yes-btn" onclick="nextSlide(3)">Hope you’re enjoying this as much as I am 😊❤️➡️</button>
+                
+                <button class="back-btn" onclick="prevSlide(1)">Wait, take me back! I miss the previous photo 🥺</button>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="photo-frame">
+                <img src="4.jpeg.jpeg" alt="Photo 4">
+            </div>
+            
+            <p>I just wanted to add this photo to appreciate you and thank you for everything you have done for me. All the flowers, 
+                this ring, and this cutie Come Come Cat that stays near me make me feel so special.
+                I just hope I can make you feel the same, and I hope we stay like this forever🥰🤞🧿</p>
+            
+            <div class="buttons">
+                <button class="yes-btn" onclick="nextSlide(4)">I hope this makes you smile the way you always make me smile 😊💞➡️</button>
+                
+                <button class="back-btn" onclick="prevSlide(2)">Let's rewind, that last one was so cute!</button>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="photo-frame">
+                <img src="5.jpeg.jpeg" alt="Photo 5">
+            </div>
+            <h2>Reason #4</h2>
+            <p>Ahhh, look at us! I don’t even have to say anything — just look at how sexy, cute, and awesome of a power couple we are, and that height difference 😍🤌🔥
+                I added the second photo in the collage because you once said I look cute the way I’m holding your arm. 
+                I remembered that, and I thought it would make you smile🥰</p>
+            
+            <div class="buttons">
+                <button class="yes-btn" onclick="nextSlide(5)">One last photo, i swear 🤭➡️</button>
+                
+                <button class="back-btn" onclick="prevSlide(3)">One more look at the previous pic (i know you want to🤭) </button>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="photo-frame">
+                <img src="6.jpeg.jpeg" alt="Photo 6">
+            </div>
+            <h2>I Love You!</h2>
+            <p>Happy Valentine's Day! Here’s to many more dates and memories to come😘🧿🥂 </p>
+            
+            <div class="buttons">
+                <button class="back-btn" onclick="prevSlide(4)">You can go back and look at all the photos (only if you want to 🤭❤️) </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- JAVASCRIPT LOGIC ---
+
+        let noClickCount = 0;
+        
+       // ❌ EDIT FUNNY "NO" MESSAGES HERE
+const noMessages = [
+    "Wrong answer 💔 I think your finger slipped… let’s try that again, shall we 💗", 
+    "Are you sure about that? Because my heart is 100% sure about you😉❤️",
+    "Are you seriously clicking No? 🥺", 
+    "Don't lie to yourself! 💖", 
+    "Okay, stop playing hard to get! 😭", 
+    "Last warning! Say YES! 😠"
+];
+
+        function handleNoClick() {
+            const responseText = document.getElementById('response-text');
+            responseText.classList.remove('shake'); 
+            void responseText.offsetWidth; 
+            responseText.classList.add('shake'); 
+
+            if (noClickCount < noMessages.length) {
+                responseText.innerText = noMessages[noClickCount];
+                noClickCount++;
+            } else {
+                 responseText.innerText = "Okay, I'll ask one more time... Please? 🌷";
+                 noClickCount = 0; 
+            }
+        }
+
+        function startSlideshow() {
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('slideshow-container').style.display = 'block';
+        }
+
+        function showSlide(index) {
+            let slides = document.getElementsByClassName('slide');
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = 'none';
+                slides[i].classList.remove('active');
+            }
+            if (index >= 0 && index < slides.length) {
+                slides[index].style.display = 'block';
+                slides[index].classList.add('active');
+            }
+        }
+
+        function nextSlide(targetIndex) { showSlide(targetIndex); }
+        function prevSlide(targetIndex) { showSlide(targetIndex); }
+    </script>
+</body>
+</html>
